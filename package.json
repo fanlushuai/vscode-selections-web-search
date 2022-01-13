@@ -1,0 +1,88 @@
+{
+	"name": "selections-web-search",
+	"displayName": "selections web search",
+	"description": "oepn web search with keywords parsed from selection text.",
+	"author":{
+		"name": "fanlushuai"
+	},
+	"publisher": "auh",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.63.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/fanlushuai/vscode-selections-web-search.git"
+    },
+    "homepage": "https://github.com/fanlushuai/vscode-selections-web-search/blob/main/README.md",
+	"activationEvents": [
+		"onCommand:selections-web-search.webSearchAll"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "selections-web-search.webSearchAll",
+				"title": "webSearchAll"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "selections-web-search.webSearchAll",
+					"when": "editorHasSelection"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "selections-web-search.webSearchAll",
+				"key": "alt+;",
+				"mac": "alt+;",
+				"when": "editorHasSelection"
+			}
+		],
+		"configuration": [
+			{
+				"title": "Selections-web-search",
+				"properties": {
+					"selections-web-search.url": {
+						"type": "string",
+						"default": "https://www.google.com/search?q=%s",
+						"description": "Google or Baidu or other search url. Keyword will replace `%s` "
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.63.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
+		"eslint": "^8.1.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.3",
+		"typescript": "^4.4.4",
+		"ts-loader": "^9.2.5",
+		"webpack": "^5.52.1",
+		"webpack-cli": "^4.8.0",
+		"@vscode/test-electron": "^1.6.2"
+	}
+}
